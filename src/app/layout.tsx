@@ -1,0 +1,53 @@
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "next-themes";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "AISensorEdgeComp — Live MVP Dashboard",
+  description: "Live IoT sensor mesh, edge AI inference, and natural-language query layer.",
+  keywords: ["IoT", "Edge AI", "Time-Series Foundation Model", "Industrial"],
+  openGraph: {
+    title: "AISensorEdgeComp — Live MVP Dashboard",
+    description: "Live IoT sensor mesh, edge AI inference, and natural-language query layer.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AISensorEdgeComp MVP",
+    description: "Live IoT + Edge AI dashboard",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}

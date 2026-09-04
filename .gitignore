@@ -1,0 +1,40 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# next.js
+.next/
+out/
+build/
+dist/
+
+# production
+*.log
+dev.log
+server.log
+
+# env files
+.env
+.env.local
+.env.development.local
+.env.production.local
+
+# misc
+.DS_Store
+*.pem
+.vscode/
+.idea/
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# z-ai config (NEVER commit)
+.z-ai-config
+
+# sandbox internals
+.zscripts/
