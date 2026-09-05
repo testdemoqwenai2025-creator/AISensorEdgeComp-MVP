@@ -30,3 +30,48 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+// Design partner portal — sandbox provisioning
+model Tenant {
+  id              String   @id @default(cuid())
+  tenantId        String   @unique @default(cuid())
+  name            String
+  email           String
+  organization    String
+  role            String
+  sensorCount     Int
+  sensorTypes      String   // JSON array stored as string
+  vertical        String
+  status          String   @default("provisioning") // provisioning | active | expired | suspended
+  apiKey          String   @unique @default(cuid())
+  apiEndpoint     String?
+  dashboardUrl    String?
+  trialExpiresAt  DateTime
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  sensorReadings  SensorReading[]
+  auditLog        AuditLog[]
+}
+
+model SensorReading {
+  id        String   @id @default(cuid())
+  tenantId  String
+  sensorId  String
+  value     Float
+  unit      String
+  status    String   @default("nominal")
+  timestamp DateTime @default(now())
+
+  tenant    Tenant   @relation(fields: [tenantId], references: [tenantId])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  tenantId  String
+  action    String
+  details   String?
+  timestamp DateTime @default(now())
+
+  tenant    Tenant   @relation(fields: [tenantId], references: [tenantId])
+}
